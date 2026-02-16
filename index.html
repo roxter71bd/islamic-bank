@@ -1,0 +1,3982 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নূর ইসলামী শরীয়া ব্যাংক</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==== ভেরিয়েবল ও রিসেট ==== */
+        :root {
+            --primary: #1a472a;
+            --primary-dark: #0d2e1a;
+            --primary-light: #e8f5e9;
+            --secondary: #d4af37;
+            --secondary-dark: #b8941f;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --white: #ffffff;
+            --gray: #7f8c8d;
+            --border: #bdc3c7;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --radius: 10px;
+            --radius-sm: 6px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Kalpurush', 'SolaimanLipi', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ==== ইউটিলিটি ক্লাস ==== */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .center { align-items: center; justify-content: center; }
+        .between { justify-content: space-between; }
+        .gap-10 { gap: 10px; }
+        .gap-15 { gap: 15px; }
+        .gap-20 { gap: 20px; }
+        .wrap { flex-wrap: wrap; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .w-100 { width: 100%; }
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .p-20 { padding: 20px; }
+        .pointer { cursor: pointer; }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-info { background: var(--info); color: white; }
+        .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+        .btn-lg { padding: 16px 32px; font-size: 1.1rem; }
+
+        .card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* ==== লগইন ও রেজিস্ট্রেশন ==== */
+        #auth-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .auth-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-heavy);
+            overflow: hidden;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .auth-logo {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .auth-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: var(--light);
+        }
+
+        .auth-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* ==== ড্যাশবোর্ড লেআউট ==== */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* সাইডবার */
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .sidebar-logo {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            padding: 14px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--dark);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            margin: 5px 0;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+        }
+
+        .menu-item i {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .badge {
+            background: var(--danger);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: auto;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: var(--light);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* মেইন কন্টেন্ট */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .top-bar {
+            background: var(--white);
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .notification-btn {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--gray);
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .notification-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* ==== ড্যাশবোর্ড উইজেট ==== */
+        .dashboard-content {
+            padding: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 6px solid var(--primary);
+        }
+
+        .stat-card.success { border-left-color: var(--success); }
+        .stat-card.warning { border-left-color: var(--warning); }
+        .stat-card.info { border-left-color: var(--info); }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        /* ==== সার্ভিস গ্রিড ==== */
+        .services-container {
+            padding: 25px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--secondary);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .service-icon {
+            padding: 25px;
+            text-align: center;
+            font-size: 3rem;
+            color: var(--secondary);
+            background: linear-gradient(135deg, #fff9e6, #fff3cc);
+        }
+
+        .service-body {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        .service-features {
+            margin-bottom: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--success);
+            font-size: 0.8rem;
+        }
+
+        /* ==== টেবিল ==== */
+        .table-container {
+            padding: 25px;
+        }
+
+        .table-responsive {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+        .status-processing { background: #cce5ff; color: #004085; }
+        .status-completed { background: #d1ecf1; color: #0c5460; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* ==== চ্যাট সিস্টেম ==== */
+        .chat-container {
+            display: flex;
+            height: calc(100vh - 120px);
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .chat-list {
+            width: 320px;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+        }
+
+        .chat-window {
+            flex: 1;
+            background: var(--white);
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--primary-light);
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .msg-sent {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .msg-received {
+            align-self: flex-start;
+            background: var(--white);
+            color: #333;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: var(--white);
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            outline: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+
+        /* ==== মোডাল ==== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* ==== নোটিফিকেশন ==== */
+        .notifications-panel {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--border);
+            z-index: 1000;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .notifications-panel.show {
+            display: block;
+            animation: fadeInDown 0.3s;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .notifications-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background: #f0f7ff;
+        }
+
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ==== বিশেষ স্টাইল ==== */
+        .sharia-badge {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(26, 71, 42, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--white);
+            color: #333;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-heavy);
+            border-left: 5px solid var(--primary);
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.warning { border-left-color: var(--warning); }
+        .toast.info { border-left-color: var(--info); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ==== মোবাইল রেসপনসিভ ==== */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--primary-light);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                height: 100%;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+            }
+            
+            .sidebar.open {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .chat-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .chat-list {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .chat-window {
+                height: 500px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .welcome-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+
+        /* ==== ইসলামিক ডিজাইন এলিমেন্ট ==== */
+        .islamic-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231a472a' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body>
+    <!-- টোস্ট কন্টেইনার -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- অথেনটিকেশন সেকশন -->
+    <section id="auth-section">
+        <div class="auth-container">
+            <!-- লগইন ফর্ম -->
+            <div id="login-form" class="auth-box">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <h2>নূর ইসলামী শরীয়া ব্যাংক</h2>
+                    <p>সুদমুক্ত ইসলামী ব্যাংকিং ব্যবস্থা</p>
+                </div>
+                <div class="auth-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> ইউজার আইডি / NID নম্বর</label>
+                            <input type="text" id="login-userid" class="form-control" placeholder="আপনার ইউজার আইডি অথবা NID" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="আপনার পাসওয়ার্ড" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-shield-alt"></i> নিরাপত্তা কোড</label>
+                            <div class="form-row">
+                                <input type="text" id="login-captcha" class="form-control" placeholder="কোড লিখুন" required>
+                                <div id="captcha-code" class="form-control" style="background: #f8f9fa; font-family: monospace; font-size: 1.2rem; letter-spacing: 3px; text-align: center; cursor: pointer;" onclick="generateCaptcha()">A3B7</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary w-100" onclick="handleLogin()">
+                            <i class="fas fa-sign-in-alt"></i> লগইন করুন
+                        </button>
+                    </form>
+                </div>
+                <div class="auth-footer">
+                    <p>একাউন্ট নেই? <span class="auth-link" onclick="showRegisterForm()">রেজিস্ট্রেশন করুন</span></p>
+                </div>
+            </div>
+
+            <!-- রেজিস্ট্রেশন ফর্ম -->
+            <div id="register-form" class="auth-box hidden">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <h2>নতুন একাউন্ট খুলুন</h2>
+                    <p>শরীয়া ব্যাংকিংয়ে অংশগ্রহণ করুন</p>
+                </div>
+                <div class="auth-body">
+                    <form id="registerForm">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label><i class="fas fa-user"></i> পুরো নাম</label>
+                                <input type="text" id="reg-name" class="form-control" placeholder="আপনার পূর্ণ নাম" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label><i class="fas fa-user-tag"></i> উপাধি</label>
+                                <select id="reg-title" class="form-control">
+                                    <option value="">নির্বাচন করুন</option>
+                                    <option value="জনাব">জনাব</option>
+                                    <option value="জনাবা">জনাবা</option>
+                                    <option value="ডক্টর">ডক্টর</option>
+                                    <option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-id-card"></i> জাতীয় পরিচয়পত্র নম্বর (NID)</label>
+                            <input type="text" id="reg-nid" class="form-control" placeholder="১০ বা ১৭ ডিজিটের NID নম্বর" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> ইমেইল ঠিকানা</label>
+                                <input type="email" id="reg-email" class="form-control" placeholder="example@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> মোবাইল নম্বর</label>
+                                <input type="tel" id="reg-phone" class="form-control" placeholder="০১XXXXXXXXX" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-user-tag"></i> একাউন্টের ধরন</label>
+                            <select id="reg-type" class="form-control" required>
+                                <option value="">নির্বাচন করুন</option>
+                                <option value="personal">ব্যক্তিগত সঞ্চয়</option>
+                                <option value="business">ব্যবসায়ী বিনিয়োগ</option>
+                                <option value="corporate">কর্পোরেট বিনিয়োগ</option>
+                                <option value="student">ছাত্র আমানত</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                                <input type="password" id="reg-password" class="form-control" placeholder="শক্তিশালী পাসওয়ার্ড" required onkeyup="checkPasswordStrength(this.value)">
+                                <div class="password-strength" style="margin-top: 5px; height: 5px; background: #eee; border-radius: 3px; overflow: hidden;">
+                                    <div id="password-strength-bar" style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s;"></div>
+                                </div>
+                                <small style="color: var(--gray); font-size: 0.8rem;">কমপক্ষে ৮ অক্ষর, সংখ্যা ও বড় হাতের অক্ষর</small>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-lock"></i> পাসওয়ার্ড নিশ্চিত করুন</label>
+                                <input type="password" id="reg-confirm-password" class="form-control" placeholder="পুনরায় পাসওয়ার্ড" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> জন্ম তারিখ</label>
+                            <input type="date" id="reg-dob" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> বর্তমান ঠিকানা</label>
+                            <textarea id="reg-address" class="form-control" rows="2" placeholder="পূর্ণ ঠিকানা" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-industry"></i> পেশা</label>
+                            <select id="reg-occupation" class="form-control">
+                                <option value="">নির্বাচন করুন</option>
+                                <option value="government">সরকারি চাকরি</option>
+                                <option value="private">বেসরকারি চাকরি</option>
+                                <option value="business">ব্যবসা</option>
+                                <option value="student">শিক্ষার্থী</option>
+                                <option value="housewife">গৃহিণী</option>
+                                <option value="retired">অবসরপ্রাপ্ত</option>
+                                <option value="other">অন্যান্য</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill-wave"></i> মাসিক আয় (টাকায়)</label>
+                            <input type="number" id="reg-income" class="form-control" placeholder="আপনার মাসিক আয়" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <input type="checkbox" id="reg-terms" required style="margin-top: 3px;">
+                                <label for="reg-terms" style="font-size: 0.9rem; margin: 0;">
+                                    আমি নূর ইসলামী শরীয়া ব্যাংকের 
+                                    <span class="auth-link" onclick="showTermsModal()">শর্তাবলী ও নীতিমালা</span> 
+                                    পড়েছি এবং মেনে চলতে সম্মত
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-secondary w-100" onclick="handleRegister()">
+                            <i class="fas fa-user-plus"></i> রেজিস্ট্রেশন সম্পন্ন করুন
+                        </button>
+                    </form>
+                </div>
+                <div class="auth-footer">
+                    <p>ইতিমধ্যে একাউন্ট আছে? <span class="auth-link" onclick="showLoginForm()">লগইন করুন</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- মেইন অ্যাপ কন্টেইনার -->
+    <section id="app-section" class="app-container hidden">
+        <!-- সাইডবার -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-mosque"></i>
+                </div>
+                <h3>নূর ইসলামী ব্যাংক</h3>
+                <p>শরীয়া ব্যাংকিং</p>
+            </div>
+            
+            <div class="sidebar-menu" id="menu-container">
+                <!-- মেনু আইটেম জাভাস্ক্রিপ্ট দিয়ে যুক্ত হবে -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">আ</div>
+                    <div style="flex: 1;">
+                        <div id="sidebar-username" style="font-weight: 600;">ব্যবহারকারী</div>
+                        <div id="sidebar-usertype" style="font-size: 0.85rem; color: var(--gray);">গ্রাহক</div>
+                    </div>
+                </div>
+                <button class="btn btn-outline w-100 mt-10" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> লগআউট
+                </button>
+            </div>
+        </nav>
+        
+        <!-- মেইন কন্টেন্ট -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="flex center gap-15">
+                    <div class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="page-title" id="page-title">
+                        <i class="fas fa-home"></i> <span>ড্যাশবোর্ড</span>
+                    </div>
+                </div>
+                
+                <div class="top-actions">
+                    <div class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge hidden" id="notification-badge">0</span>
+                    </div>
+                    <div class="notifications-panel" id="notifications-panel">
+                        <div class="notifications-header">
+                            <h4>নোটিফিকেশন</h4>
+                            <span class="auth-link" onclick="markAllNotificationsRead()" style="font-size: 0.9rem;">সব পড়া</span>
+                        </div>
+                        <div class="notifications-list" id="notifications-list">
+                            <!-- নোটিফিকেশন লিস্ট -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="content-area">
+                <!-- কন্টেন্ট এখানে লোড হবে -->
+            </div>
+        </main>
+    </section>
+
+    <!-- সার্ভিস আবেদন মোডাল -->
+    <div id="service-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">সার্ভিস আবেদন</h3>
+                <button onclick="closeModal()" class="btn btn-sm btn-outline">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- মোডাল কন্টেন্ট -->
+            </div>
+        </div>
+    </div>
+
+    <!-- শরীয়া পরামর্শ মোডাল -->
+    <div id="sharia-advice-modal" class="modal-overlay hidden">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-hands-helping"></i> শরীয়া পরামর্শ কেন্দ্র</h3>
+                <button onclick="closeShariaAdviceModal()" class="btn btn-sm btn-outline">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-container" style="height: 500px;">
+                    <div class="chat-window">
+                        <div class="chat-header">
+                            <i class="fas fa-user-tie"></i> শরীয়া বিশেষজ্ঞের সাথে কথা বলুন
+                        </div>
+                        <div class="chat-messages" id="sharia-chat-messages">
+                            <div class="message msg-received">
+                                <div>আসসালামু আলাইকুম ওয়া রাহমাতুল্লাহ। আমি নূর ইসলামী ব্যাংকের শরীয়া পরামর্শক। আপনার শরীয়া বিষয়ক যে কোন প্রশ্ন করতে পারেন।</div>
+                                <div class="message-time">শরীয়া পরামর্শক</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="sharia-chat-input" class="chat-input" placeholder="আপনার শরীয়া বিষয়ক প্রশ্ন লিখুন...">
+                            <button class="btn btn-primary" onclick="sendShariaMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- টার্মস এন্ড কন্ডিশন মোডাল -->
+    <div id="terms-modal" class="modal-overlay hidden">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-contract"></i> শর্তাবলী ও নীতিমালা</h3>
+                <button onclick="closeTermsModal()" class="btn btn-sm btn-outline">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                    <h4>শরীয়া নীতিমালা</h4>
+                    <p>১. নূর ইসলামী শরীয়া ব্যাংক সুদ (রিবা) সম্পূর্ণ নিষিদ্ধ করে।</p>
+                    <p>২. সকল লেনদেন শরীয়া সুপারভাইজরি বোর্ড দ্বারা অনুমোদিত।</p>
+                    <p>৩. বিনিয়োগে লাভ-ক্ষতি অংশীদারিত্ব (মুশারাকা) পদ্ধতি অনুসরণ করা হয়।</p>
+                    <p>৪. ঋণ প্রদানে কার্দে হাসানা (বিনা সুদে ঋণ) পদ্ধতি অনুসরণ করা হয়।</p>
+                    
+                    <h4 style="margin-top: 20px;">ব্যবহারকারীর দায়িত্ব</h4>
+                    <p>১. সমস্ত তথ্য সঠিক ও নির্ভুলভাবে প্রদান করতে হবে।</p>
+                    <p>২. একাউন্ট সুরক্ষার জন্য শক্তিশালী পাসওয়ার্ড ব্যবহার করতে হবে।</p>
+                    <p>৩. কোন প্রকার অবৈধ কার্যকলাপে জড়িত হওয়া যাবে না।</p>
+                    <p>৪. নিয়মিত একাউন্ট মনিটরিং করতে হবে।</p>
+                    
+                    <h4 style="margin-top: 20px;">গোপনীয়তা নীতি</h4>
+                    <p>১. ব্যবহারকারীর ব্যক্তিগত তথ্য গোপন রাখা হবে।</p>
+                    <p>২. তথ্য শুধুমাং শরীয়া অনুমোদিত কাজে ব্যবহার করা হবে।</p>
+                    <p>৩. তৃতীয় পক্ষের সাথে তথ্য শেয়ার করা হবে না।</p>
+                    
+                    <div class="text-center mt-20">
+                        <button class="btn btn-primary" onclick="closeTermsModal()">
+                            <i class="fas fa-check"></i> পড়েছি ও বুঝেছি
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- জাভাস্ক্রিপ্ট -->
+    <script>
+        // ===== ডেটাবেস সিস্টেম =====
+        const IslamicBankSystem = {
+            // ডেটা লোড
+            load: function() {
+                const data = localStorage.getItem('islamic_bank_db');
+                if (data) {
+                    return JSON.parse(data);
+                }
+                
+                // প্রাথমিক ডেটা
+                const initialData = {
+                    users: [
+                        {
+                            id: 'admin',
+                            nid: 'admin',
+                            password: 'Admin@123',
+                            name: 'সিস্টেম অ্যাডমিন',
+                            email: 'admin@nurislamicbank.com',
+                            phone: '০১৬২৩৭',
+                            type: 'admin',
+                            balance: 0,
+                            joined: new Date().toLocaleDateString('bn-BD'),
+                            status: 'active',
+                            address: 'বায়তুল মোকাররম, ঢাকা',
+                            occupation: 'সিস্টেম অ্যাডমিন',
+                            monthlyIncome: 0
+                        },
+                        {
+                            id: 'user_1001',
+                            nid: '1234567890123',
+                            password: 'User@123',
+                            name: 'আব্দুল্লাহ আল মামুন',
+                            email: 'mamun@example.com',
+                            phone: '০১৭১১২২৩৩৪৪',
+                            type: 'personal',
+                            balance: 50000,
+                            joined: '২০২৩-০১-১৫',
+                            status: 'active',
+                            address: 'মিরপুর, ঢাকা',
+                            occupation: 'সফটওয়্যার ইঞ্জিনিয়ার',
+                            monthlyIncome: 80000
+                        }
+                    ],
+                    services: [
+                        {
+                            id: 'mudarabah_savings',
+                            name: 'মুদারাবা সঞ্চয় আমানত',
+                            description: 'লাভ-ক্ষতি অংশীদারিত্বের ভিত্তিতে ইসলামী সঞ্চয় স্কিম। ব্যাংক ও গ্রাহক নির্ধারিত হারে লাভ ভাগাভাগি করবে।',
+                            type: 'savings',
+                            category: 'আমানত',
+                            minAmount: 1000,
+                            maxAmount: 10000000,
+                            profitRate: '৭-৯% বার্ষিক',
+                            duration: '১-১০ বছর',
+                            requirements: ['NID', 'মোবাইল নম্বর', 'আয়ের প্রমাণ'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['সুদমুক্ত লাভ', 'মাসিক মুনাফা', 'জরুরী উত্তোলন সুবিধা', 'কর ছাড় সুবিধা'],
+                            icon: 'fas fa-piggy-bank'
+                        },
+                        {
+                            id: 'musharakah_business',
+                            name: 'মুশারাকা ব্যবসায়িক বিনিয়োগ',
+                            description: 'যৌথ মূলধনে শরীয়া সম্মত ব্যবসায়িক বিনিয়োগ। লাভ-ক্ষতি অংশীদারিত্বের ভিত্তিতে পরিচালিত।',
+                            type: 'investment',
+                            category: 'বিনিয়োগ',
+                            minAmount: 50000,
+                            maxAmount: 50000000,
+                            profitRate: '১২-১৮% বার্ষিক',
+                            duration: '৩-১০ বছর',
+                            requirements: ['NID', 'ব্যবসায়িক লাইসেন্স', 'আয়ের প্রমাণ', 'ব্যবসায়িক পরিকল্পনা'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['যৌথ বিনিয়োগ', 'লাভ-ক্ষতি ভাগাভাগি', 'ব্যবসায়িক পরামর্শ', 'নিয়মিত রিপোর্ট'],
+                            icon: 'fas fa-handshake'
+                        },
+                        {
+                            id: 'murabaha_home',
+                            name: 'মুরাবাহা হোম ফাইন্যান্স',
+                            description: 'সম্পত্তি ক্রয়-বিক্রয়ের মাধ্যমে ইসলামী হাউজিং ফাইন্যান্স। ব্যাংক সম্পত্তি ক্রয় করে লাভে বিক্রয় করে।',
+                            type: 'finance',
+                            category: 'ফাইন্যান্স',
+                            minAmount: 500000,
+                            maxAmount: 50000000,
+                            profitRate: '৯-১২% বার্ষিক',
+                            duration: '৫-২০ বছর',
+                            requirements: ['NID', 'আয়ের প্রমাণ', 'সম্পত্তির দলিল', 'বয়স ২১-৬০ বছর'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['সুদমুক্ত ফাইন্যান্সিং', 'দীর্ঘমেয়াদী কিস্তি', 'সম্পত্তি বীমা', 'অগ্রিম পরিশোধ সুবিধা'],
+                            icon: 'fas fa-home'
+                        },
+                        {
+                            id: 'ijarah_vehicle',
+                            name: 'ইজারা গাড়ি ফাইন্যান্স',
+                            description: 'লিজিং এর মাধ্যমে ইসলামী গাড়ি ফাইন্যান্স। নির্ধারিত লিজ পরিশোধের পর গাড়ির মালিকানা হস্তান্তর।',
+                            type: 'finance',
+                            category: 'ফাইন্যান্স',
+                            minAmount: 300000,
+                            maxAmount: 5000000,
+                            profitRate: '১০-১৪% বার্ষিক',
+                            duration: '৩-৭ বছর',
+                            requirements: ['NID', 'ড্রাইভিং লাইসেন্স', 'আয়ের প্রমাণ', 'বয়স ২১-৫৫ বছর'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['সুদমুক্ত লিজিং', 'বিভিন্ন গাড়ির মডেল', 'বীমা সুবিধা', 'সেবা ও মেরামত সহায়তা'],
+                            icon: 'fas fa-car'
+                        },
+                        {
+                            id: 'qard_hasan',
+                            name: 'কার্দে হাসানা (বিনা সুদে ঋণ)',
+                            description: 'বিনা সুদে জরুরী প্রয়োজনে ইসলামী ঋণ সুবিধা। শুধুমাত্র মানবিক ও জরুরী প্রয়োজনে প্রদান করা হয়।',
+                            type: 'loan',
+                            category: 'ঋণ',
+                            minAmount: 10000,
+                            maxAmount: 500000,
+                            profitRate: '০%',
+                            duration: '৬-২৪ মাস',
+                            requirements: ['NID', 'জরুরী প্রয়োজনের প্রমাণ', 'সুপারিশপত্র'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['বিনা সুদে ঋণ', 'সহজ শর্ত', 'দ্রুত প্রক্রিয়াকরণ', 'নমনীয় মেয়াদ'],
+                            icon: 'fas fa-hand-holding-heart'
+                        },
+                        {
+                            id: 'wakala_investment',
+                            name: 'ওয়াকালা বিনিয়োগ ব্যবস্থাপনা',
+                            description: 'ব্যাংক গ্রাহকের পক্ষ থেকে পেশাদার বিনিয়োগ ব্যবস্থাপনা করে। নির্ধারিত ফির বিনিময়ে বিনিয়োগ পরিচালনা।',
+                            type: 'investment',
+                            category: 'বিনিয়োগ',
+                            minAmount: 100000,
+                            maxAmount: 10000000,
+                            profitRate: '৮-১৫% বার্ষিক',
+                            duration: '২-৭ বছর',
+                            requirements: ['NID', 'আয়ের প্রমাণ', 'বিনিয়োগের অভিজ্ঞতা'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['পেশাদার ব্যবস্থাপনা', 'বিভিন্ন পোর্টফোলিও', 'নিয়মিত আপডেট', 'ঝুঁকি ব্যবস্থাপনা'],
+                            icon: 'fas fa-chart-line'
+                        },
+                        {
+                            id: 'sukuk_bond',
+                            name: 'সুকুক ইসলামী বন্ড',
+                            description: 'শরীয়া সম্মত সম্পদ ভিত্তিক ইসলামী বন্ড। প্রকল্প ভিত্তিক বিনিয়োগে অংশগ্রহণের সুযোগ।',
+                            type: 'investment',
+                            category: 'বিনিয়োগ',
+                            minAmount: 50000,
+                            maxAmount: 10000000,
+                            profitRate: '৯-১১% বার্ষিক',
+                            duration: '৩-১০ বছর',
+                            requirements: ['NID', 'আয়ের প্রমাণ', 'কর সনদ'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['সম্পদ ভিত্তিক বন্ড', 'নিয়মিত আয়', 'কর্পোরেট সুবিধা', 'বাজারজাতকরণযোগ্য'],
+                            icon: 'fas fa-file-contract'
+                        },
+                        {
+                            id: 'takaful_insurance',
+                            name: 'তাকাফুল ইসলামী বীমা',
+                            description: 'পারস্পরিক সহযোগিতার ভিত্তিতে ইসলামী বীমা সুবিধা। শরীয়া সম্মত ঝুঁকি ব্যবস্থাপনা পদ্ধতি।',
+                            type: 'insurance',
+                            category: 'বীমা',
+                            minAmount: 5000,
+                            maxAmount: 1000000,
+                            profitRate: 'ভেরিয়েবল',
+                            duration: '১-২০ বছর',
+                            requirements: ['NID', 'স্বাস্থ্য পরীক্ষা', 'বয়স ১৮-৬০ বছর'],
+                            shariaCompliant: true,
+                            shariaApproval: 'শরীয়া বোর্ড অনুমোদিত',
+                            features: ['পারস্পরিক সহযোগিতা', 'সুদমুক্ত', 'বিভিন্ন কভারেজ', 'লাভ বণ্টন'],
+                            icon: 'fas fa-shield-alt'
+                        }
+                    ],
+                    applications: [
+                        {
+                            id: 1001,
+                            userId: 'user_1001',
+                            userName: 'আব্দুল্লাহ আল মামুন',
+                            serviceId: 'mudarabah_savings',
+                            serviceName: 'মুদারাবা সঞ্চয় আমানত',
+                            amount: 50000,
+                            duration: '৩ বছর',
+                            purpose: 'বাড়ি নির্মাণের সঞ্চয়',
+                            status: 'approved',
+                            appliedDate: '২০২৩-০২-১০',
+                            approvedDate: '২০২৩-০২-১৫',
+                            approvedBy: 'সিস্টেম অ্যাডমিন',
+                            shariaReview: true,
+                            reviewComment: 'শরীয়া সম্মত আবেদন, অনুমোদিত'
+                        }
+                    ],
+                    transactions: [
+                        {
+                            id: 5001,
+                            userId: 'user_1001',
+                            type: 'deposit',
+                            amount: 50000,
+                            description: 'মুদারাবা সঞ্চয় আমানত',
+                            date: '২০২৩-০২-১০ ১১:৩০',
+                            status: 'completed',
+                            balance: 50000
+                        }
+                    ],
+                    messages: [
+                        {
+                            id: 2001,
+                            from: 'user_1001',
+                            to: 'admin',
+                            text: 'আমার মুদারাবা সঞ্চয়ের লাভ কখন পাবো?',
+                            timestamp: '২০২৩-০২-১২ ১০:১৫',
+                            read: true
+                        },
+                        {
+                            id: 2002,
+                            from: 'admin',
+                            to: 'user_1001',
+                            text: 'প্রতি মাসের ১০ তারিখে লাভ যোগ করা হয়।',
+                            timestamp: '২০২৩-০২-১২ ১০:৩০',
+                            read: true
+                        }
+                    ],
+                    notifications: [
+                        {
+                            id: 3001,
+                            userId: 'admin',
+                            title: 'নতুন আবেদন',
+                            message: 'আব্দুল্লাহ আল মামুন মুদারাবা সঞ্চয়ের জন্য আবেদন করেছেন',
+                            type: 'application',
+                            timestamp: '২০২৩-০২-১০ ১১:৩০',
+                            read: true
+                        }
+                    ],
+                    shariaAdvice: [],
+                    settings: {
+                        bankName: 'নূর ইসলামী শরীয়া ব্যাংক',
+                        supportEmail: 'support@nurislamicbank.com',
+                        contactNumber: '১৬২৩৭',
+                        address: 'বায়তুল মোকাররম, ঢাকা',
+                        workingHours: 'শনিবার-বৃহস্পতিবার: সকাল ৯টা - বিকাল ৫টা',
+                        prayerBreak: 'জুমার নামায: দুপুর ১২:৩০ - ২:৩০'
+                    }
+                };
+                
+                localStorage.setItem('islamic_bank_db', JSON.stringify(initialData));
+                return initialData;
+            },
+            
+            // ডেটা সেভ
+            save: function(data) {
+                localStorage.setItem('islamic_bank_db', JSON.stringify(data));
+            },
+            
+            // ইউজার খুঁজুন
+            findUser: function(identifier, password = null) {
+                const db = this.load();
+                if (password) {
+                    return db.users.find(u => 
+                        (u.id === identifier || u.nid === identifier || u.email === identifier) && 
+                        u.password === password
+                    );
+                }
+                return db.users.find(u => 
+                    u.id === identifier || u.nid === identifier || u.email === identifier
+                );
+            },
+            
+            // নোটিফিকেশন যোগ করুন
+            addNotification: function(userId, title, message, type = 'info') {
+                const db = this.load();
+                const notification = {
+                    id: Date.now(),
+                    userId,
+                    title,
+                    message,
+                    type,
+                    timestamp: new Date().toLocaleString('bn-BD'),
+                    read: false
+                };
+                db.notifications.push(notification);
+                this.save(db);
+                
+                // রিয়েল-টাইম আপডেট
+                if (currentUser && currentUser.id === userId) {
+                    updateNotificationCount();
+                }
+                
+                return notification;
+            },
+            
+            // আবেদন যোগ করুন
+            addApplication: function(application) {
+                const db = this.load();
+                application.id = Date.now();
+                application.status = 'pending';
+                application.appliedDate = new Date().toLocaleString('bn-BD');
+                db.applications.push(application);
+                this.save(db);
+                
+                // অ্যাডমিনকে নোটিফিকেশন
+                this.addNotification('admin', 'নতুন আবেদন', 
+                    `${application.userName} ${application.serviceName} এর জন্য আবেদন করেছেন`, 
+                    'application');
+                
+                // ইউজারকে নোটিফিকেশন
+                this.addNotification(application.userId, 'আবেদন জমা হয়েছে', 
+                    `আপনার ${application.serviceName} আবেদন জমা হয়েছে`, 
+                    'success');
+                
+                return application;
+            },
+            
+            // মেসেজ যোগ করুন
+            addMessage: function(from, to, text) {
+                const db = this.load();
+                const message = {
+                    id: Date.now(),
+                    from,
+                    to,
+                    text,
+                    timestamp: new Date().toLocaleString('bn-BD'),
+                    read: false
+                };
+                db.messages.push(message);
+                this.save(db);
+                
+                // রিসিভারকে নোটিফিকেশন
+                if (to !== from) {
+                    const fromUser = this.findUser(from);
+                    this.addNotification(to, 'নতুন বার্তা', 
+                        `${fromUser?.name || 'কেউ'} আপনাকে বার্তা পাঠিয়েছেন`, 
+                        'message');
+                }
+                
+                return message;
+            },
+            
+            // লেনদেন যোগ করুন
+            addTransaction: function(transaction) {
+                const db = this.load();
+                transaction.id = Date.now();
+                transaction.date = new Date().toLocaleString('bn-BD');
+                db.transactions.push(transaction);
+                this.save(db);
+                return transaction;
+            }
+        };
+
+        // ===== গ্লোবাল ভ্যারিয়েবল =====
+        let currentUser = null;
+        let currentService = null;
+        let activeChatWith = null;
+
+        // ===== ইউটিলিটি ফাংশন =====
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'fas fa-info-circle';
+            let bgColor = 'var(--primary)';
+            
+            switch(type) {
+                case 'success': 
+                    icon = 'fas fa-check-circle'; 
+                    bgColor = 'var(--success)';
+                    break;
+                case 'error': 
+                    icon = 'fas fa-exclamation-circle'; 
+                    bgColor = 'var(--danger)';
+                    break;
+                case 'warning': 
+                    icon = 'fas fa-exclamation-triangle'; 
+                    bgColor = 'var(--warning)';
+                    break;
+                case 'info': 
+                    icon = 'fas fa-info-circle'; 
+                    bgColor = 'var(--info)';
+                    break;
+            }
+            
+            toast.innerHTML = `
+                <div style="color: ${bgColor}; font-size: 1.2rem;">
+                    <i class="${icon}"></i>
+                </div>
+                <div>${message}</div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+            let captcha = '';
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('captcha-code').textContent = captcha;
+            return captcha;
+        }
+
+        function checkPasswordStrength(password) {
+            const bar = document.getElementById('password-strength-bar');
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+            
+            bar.style.width = strength + '%';
+            
+            if (strength < 50) {
+                bar.style.background = '#e74c3c';
+            } else if (strength < 75) {
+                bar.style.background = '#f39c12';
+            } else {
+                bar.style.background = '#27ae60';
+            }
+        }
+
+        function formatMoney(amount) {
+            if (!amount) return '০.০০';
+            return amount.toLocaleString('bn-BD', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            try {
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('bn-BD');
+            } catch {
+                return dateStr;
+            }
+        }
+
+        // ===== অথেনটিকেশন ফাংশন =====
+        function showRegisterForm() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+            generateCaptcha();
+        }
+
+        function showLoginForm() {
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            generateCaptcha();
+        }
+
+        function handleLogin() {
+            const userId = document.getElementById('login-userid').value;
+            const password = document.getElementById('login-password').value;
+            const captcha = document.getElementById('login-captcha').value;
+            const captchaCode = document.getElementById('captcha-code').textContent;
+            
+            if (captcha !== captchaCode) {
+                showToast('নিরাপত্তা কোড সঠিক নয়', 'error');
+                generateCaptcha();
+                return;
+            }
+            
+            const user = IslamicBankSystem.findUser(userId, password);
+            
+            if (user) {
+                if (user.status !== 'active') {
+                    showToast('আপনার অ্যাকাউন্ট সক্রিয় নয়', 'error');
+                    return;
+                }
+                
+                currentUser = user;
+                
+                // সেশন স্টোর
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // UI আপডেট
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('app-section').classList.remove('hidden');
+                
+                // ইউজার তথ্য সেট
+                document.getElementById('sidebar-username').textContent = user.name;
+                document.getElementById('sidebar-usertype').textContent = 
+                    user.type === 'admin' ? 'অ্যাডমিন' : 
+                    user.type === 'business' ? 'ব্যবসায়ী' : 
+                    user.type === 'corporate' ? 'কর্পোরেট' : 
+                    user.type === 'student' ? 'ছাত্র' : 'ব্যক্তিগত';
+                document.getElementById('user-avatar').textContent = user.name.charAt(0);
+                
+                // ড্যাশবোর্ড ইনিশিয়ালাইজ
+                initializeDashboard();
+                showToast(`আসসালামু আলাইকুম ${user.name}`, 'success');
+                
+                // নোটিফিকেশন আপডেট
+                updateNotificationCount();
+            } else {
+                showToast('ভুল ব্যবহারকারী আইডি বা পাসওয়ার্ড', 'error');
+                generateCaptcha();
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('reg-name').value;
+            const title = document.getElementById('reg-title').value;
+            const nid = document.getElementById('reg-nid').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const type = document.getElementById('reg-type').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            const dob = document.getElementById('reg-dob').value;
+            const address = document.getElementById('reg-address').value;
+            const occupation = document.getElementById('reg-occupation').value;
+            const income = document.getElementById('reg-income').value;
+            
+            // ভ্যালিডেশন
+            if (password !== confirmPassword) {
+                showToast('পাসওয়ার্ড মিলছে না', 'error');
+                return;
+            }
+            
+            if (nid.length !== 10 && nid.length !== 17) {
+                showToast('সঠিক NID নম্বর দিন (১০ বা ১৭ ডিজিট)', 'error');
+                return;
+            }
+            
+            if (phone.length !== 11 || !phone.startsWith('01')) {
+                showToast('সঠিক মোবাইল নম্বর দিন (০১XXXXXXXXX)', 'error');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showToast('পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে', 'error');
+                return;
+            }
+            
+            const db = IslamicBankSystem.load();
+            
+            // চেক যদি ইউজার ইতিমধ্যে থাকে
+            if (db.users.find(u => u.nid === nid)) {
+                showToast('এই NID দিয়ে ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে', 'error');
+                return;
+            }
+            
+            if (db.users.find(u => u.email === email)) {
+                showToast('এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে', 'error');
+                return;
+            }
+            
+            // নতুন ইউজার ক্রিয়েট
+            const fullName = title ? `${title} ${name}` : name;
+            const newUser = {
+                id: 'user_' + Date.now(),
+                nid,
+                password,
+                name: fullName,
+                email,
+                phone,
+                type,
+                dob,
+                address,
+                occupation,
+                monthlyIncome: parseFloat(income) || 0,
+                balance: 0,
+                joined: new Date().toLocaleDateString('bn-BD'),
+                status: 'active'
+            };
+            
+            db.users.push(newUser);
+            IslamicBankSystem.save(db);
+            
+            // অ্যাডমিনকে নোটিফিকেশন
+            IslamicBankSystem.addNotification('admin', 'নতুন রেজিস্ট্রেশন', 
+                `${fullName} নতুন একাউন্ট খুলেছেন (${type})`, 'registration');
+            
+            showToast('রেজিস্ট্রেশন সফল! অনুগ্রহ করে লগইন করুন', 'success');
+            showLoginForm();
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            document.getElementById('app-section').classList.add('hidden');
+            document.getElementById('auth-section').classList.remove('hidden');
+            showLoginForm();
+            generateCaptcha();
+        }
+
+        function showTermsModal() {
+            document.getElementById('terms-modal').classList.remove('hidden');
+        }
+
+        function closeTermsModal() {
+            document.getElementById('terms-modal').classList.add('hidden');
+        }
+
+        // ===== ড্যাশবোর্ড ফাংশন =====
+        function initializeDashboard() {
+            const menuContainer = document.getElementById('menu-container');
+            menuContainer.innerHTML = '';
+            
+            let menuItems = [];
+            
+            if (currentUser.type === 'admin') {
+                menuItems = [
+                    { id: 'dashboard', label: 'ড্যাশবোর্ড', icon: 'fas fa-tachometer-alt' },
+                    { id: 'applications', label: 'আবেদনসমূহ', icon: 'fas fa-file-alt', badge: getPendingApplicationsCount() },
+                    { id: 'users', label: 'ব্যবহারকারী', icon: 'fas fa-users' },
+                    { id: 'services', label: 'সেবা ব্যবস্থাপনা', icon: 'fas fa-hand-holding-usd' },
+                    { id: 'transactions', label: 'লেনদেন', icon: 'fas fa-exchange-alt' },
+                    { id: 'reports', label: 'রিপোর্ট', icon: 'fas fa-chart-bar' },
+                    { id: 'chat-admin', label: 'গ্রাহক চ্যাট', icon: 'fas fa-comments', badge: getUnreadMessagesCount('admin') },
+                    { id: 'sharia-panel', label: 'শরীয়া প্যানেল', icon: 'fas fa-gavel' },
+                    { id: 'settings', label: 'সেটিংস', icon: 'fas fa-cog' }
+                ];
+            } else {
+                menuItems = [
+                    { id: 'dashboard', label: 'ড্যাশবোর্ড', icon: 'fas fa-home' },
+                    { id: 'my-accounts', label: 'আমার অ্যাকাউন্ট', icon: 'fas fa-wallet' },
+                    { id: 'services-list', label: 'সেবাসমূহ', icon: 'fas fa-hand-holding-usd' },
+                    { id: 'apply-service', label: 'নতুন আবেদন', icon: 'fas fa-plus-circle' },
+                    { id: 'my-applications', label: 'আমার আবেদন', icon: 'fas fa-file-alt', badge: getUserApplicationsCount() },
+                    { id: 'transactions', label: 'লেনদেন', icon: 'fas fa-history' },
+                    { id: 'chat-user', label: 'সহায়তা চ্যাট', icon: 'fas fa-comment-dots', badge: getUnreadMessagesCount(currentUser.id) },
+                    { id: 'sharia-advice', label: 'শরীয়া পরামর্শ', icon: 'fas fa-hands-helping' },
+                    { id: 'profile', label: 'প্রোফাইল', icon: 'fas fa-user' }
+                ];
+            }
+            
+            menuItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    <i class="${item.icon}"></i>
+                    <span>${item.label}</span>
+                    ${item.badge ? `<span class="badge">${item.badge}</span>` : ''}
+                `;
+                div.onclick = () => switchTab(item.id);
+                div.id = `menu-${item.id}`;
+                menuContainer.appendChild(div);
+            });
+            
+            switchTab('dashboard');
+        }
+
+        function switchTab(tabId) {
+            // মেনু একটিভ করা
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeMenu = document.getElementById(`menu-${tabId}`);
+            if (activeMenu) activeMenu.classList.add('active');
+            
+            // মোবাইল মেনু বন্ধ
+            document.getElementById('sidebar').classList.remove('open');
+            
+            const contentArea = document.getElementById('content-area');
+            
+            switch(tabId) {
+                case 'dashboard':
+                    showDashboard(contentArea);
+                    break;
+                case 'services-list':
+                case 'services':
+                    showServices(contentArea);
+                    break;
+                case 'apply-service':
+                    showApplyService(contentArea);
+                    break;
+                case 'my-applications':
+                case 'applications':
+                    showApplications(contentArea);
+                    break;
+                case 'chat-user':
+                case 'chat-admin':
+                    showChat(contentArea);
+                    break;
+                case 'sharia-advice':
+                case 'sharia-panel':
+                    showShariaPanel(contentArea);
+                    break;
+                case 'my-accounts':
+                    showMyAccounts(contentArea);
+                    break;
+                case 'users':
+                    showUsers(contentArea);
+                    break;
+                case 'transactions':
+                    showTransactions(contentArea);
+                    break;
+                case 'reports':
+                    showReports(contentArea);
+                    break;
+                case 'profile':
+                    showProfile(contentArea);
+                    break;
+                case 'settings':
+                    showSettings(contentArea);
+                    break;
+            }
+        }
+
+        // ===== ড্যাশবোর্ড ভিউ =====
+        function showDashboard(container) {
+            const db = IslamicBankSystem.load();
+            let statsHtml = '';
+            
+            if (currentUser.type === 'admin') {
+                const totalUsers = db.users.filter(u => u.type !== 'admin').length;
+                const pendingApps = db.applications.filter(a => a.status === 'pending').length;
+                const totalBalance = db.users.reduce((sum, u) => sum + (u.balance || 0), 0);
+                const todayTransactions = db.transactions.filter(t => 
+                    t.date.includes(new Date().toLocaleDateString('bn-BD'))).length;
+                
+                statsHtml = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>${totalUsers}</h3>
+                                <p>মোট গ্রাহক</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-info">
+                                <h3>${pendingApps}</h3>
+                                <p>অপেক্ষমান আবেদন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-info">
+                                <h3>৳ ${formatMoney(totalBalance)}</h3>
+                                <p>মোট আমানত</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card info">
+                            <div class="stat-info">
+                                <h3>${todayTransactions}</h3>
+                                <p>আজকের লেনদেন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const userApps = db.applications.filter(a => a.userId === currentUser.id);
+                const pendingApps = userApps.filter(a => a.status === 'pending').length;
+                const approvedApps = userApps.filter(a => a.status === 'approved').length;
+                
+                statsHtml = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>৳ ${formatMoney(currentUser.balance || 0)}</h3>
+                                <p>বর্তমান ব্যালেন্স</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-info">
+                                <h3>${pendingApps}</h3>
+                                <p>অপেক্ষমান আবেদন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-info">
+                                <h3>${approvedApps}</h3>
+                                <p>অনুমোদিত আবেদন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card info">
+                            <div class="stat-info">
+                                <h3>${getUserTypeText(currentUser.type)}</h3>
+                                <p>একাউন্ট টাইপ</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-user-tag"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <div class="dashboard-content">
+                    <div class="welcome-banner">
+                        <div>
+                            <h2>আসসালামু আলাইকুম ${currentUser.name}</h2>
+                            <p>নূর ইসলামী শরীয়া ব্যাংকে স্বাগতম। আপনার সুদমুক্ত ইসলামী ব্যাংকিং যাত্রা শুরু হোক।</p>
+                        </div>
+                        <div style="font-size: 3rem; opacity: 0.3;">
+                            <i class="fas fa-mosque"></i>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #fff9e6, #fff3cc); border: 2px solid var(--secondary); border-radius: var(--radius); padding: 20px; margin-bottom: 25px;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="font-size: 2rem; color: var(--secondary);">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--primary-dark); margin-bottom: 5px;">শরীয়া নিশ্চিতকরণ</h3>
+                                <p style="color: var(--dark);">নূর ইসলামী ব্যাংকের সকল সেবা শরীয়া সুপারভাইজরি বোর্ড দ্বারা অনুমোদিত।</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${statsHtml}
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 20px;">দ্রুত অ্যাকশন</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            ${currentUser.type === 'admin' ? `
+                                <div class="card text-center" onclick="switchTab('applications')">
+                                    <div style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <h4>আবেদন দেখুন</h4>
+                                </div>
+                                <div class="card text-center" onclick="switchTab('chat-admin')">
+                                    <div style="font-size: 2rem; color: var(--info); margin-bottom: 10px;">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <h4>গ্রাহক চ্যাট</h4>
+                                </div>
+                                <div class="card text-center" onclick="switchTab('reports')">
+                                    <div style="font-size: 2rem; color: var(--success); margin-bottom: 10px;">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <h4>রিপোর্ট</h4>
+                                </div>
+                                <div class="card text-center" onclick="switchTab('sharia-panel')">
+                                    <div style="font-size: 2rem; color: var(--secondary); margin-bottom: 10px;">
+                                        <i class="fas fa-gavel"></i>
+                                    </div>
+                                    <h4>শরীয়া প্যানেল</h4>
+                                </div>
+                            ` : `
+                                <div class="card text-center" onclick="switchTab('apply-service')">
+                                    <div style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                    <h4>নতুন সেবা নিন</h4>
+                                </div>
+                                <div class="card text-center" onclick="switchTab('my-applications')">
+                                    <div style="font-size: 2rem; color: var(--info); margin-bottom: 10px;">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <h4>আমার আবেদন</h4>
+                                </div>
+                                <div class="card text-center" onclick="switchTab('chat-user')">
+                                    <div style="font-size: 2rem; color: var(--success); margin-bottom: 10px;">
+                                        <i class="fas fa-comment-dots"></i>
+                                    </div>
+                                    <h4>সহায়তা চ্যাট</h4>
+                                </div>
+                                <div class="card text-center" onclick="openShariaAdviceModal()">
+                                    <div style="font-size: 2rem; color: var(--secondary); margin-bottom: 10px;">
+                                        <i class="fas fa-hands-helping"></i>
+                                    </div>
+                                    <h4>শরীয়া পরামর্শ</h4>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-home"></i> ড্যাশবোর্ড`;
+        }
+
+        function getUserTypeText(type) {
+            switch(type) {
+                case 'personal': return 'ব্যক্তিগত';
+                case 'business': return 'ব্যবসায়ী';
+                case 'corporate': return 'কর্পোরেট';
+                case 'student': return 'ছাত্র';
+                case 'admin': return 'অ্যাডমিন';
+                default: return 'ব্যক্তিগত';
+            }
+        }
+
+        // ===== সার্ভিস ভিউ =====
+        function showServices(container) {
+            const db = IslamicBankSystem.load();
+            
+            let servicesHtml = '';
+            db.services.forEach(service => {
+                servicesHtml += `
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="${service.icon}"></i>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-title">${service.name}</div>
+                            <div class="service-desc">${service.description}</div>
+                            
+                            <div class="service-features">
+                                ${service.features.map(feature => `
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>${feature}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                                <div>
+                                    <div style="color: var(--primary); font-weight: 600;">ন্যূনতম: ৳${formatMoney(service.minAmount)}</div>
+                                    <div style="color: var(--secondary); font-size: 0.9rem;">লাভ: ${service.profitRate}</div>
+                                    <span class="sharia-badge">
+                                        <i class="fas fa-star"></i> শরীয়া অনুমোদিত
+                                    </span>
+                                </div>
+                                ${currentUser.type === 'admin' ? `
+                                    <button class="btn btn-info btn-sm" onclick="editService('${service.id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                ` : `
+                                    <button class="btn btn-primary" onclick="applyForService('${service.id}')">
+                                        <i class="fas fa-arrow-right"></i> আবেদন
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="services-container">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2>শরীয়া সেবাসমূহ</h2>
+                        ${currentUser.type === 'admin' ? 
+                            `<button class="btn btn-secondary" onclick="addNewService()">
+                                <i class="fas fa-plus"></i> নতুন সেবা
+                            </button>` : ''}
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, var(--primary-light), #e8f5e9); border-radius: var(--radius); padding: 20px; margin-bottom: 25px;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="font-size: 1.5rem; color: var(--primary);">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary-dark); margin-bottom: 5px;">শরীয়া নিশ্চিতকরণ</h4>
+                                <p style="color: var(--dark);">প্রতিটি সেবা আমাদের শরীয়া সুপারভাইজরি বোর্ড দ্বারা পর্যালোচিত এবং অনুমোদিত।</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="services-grid">
+                        ${servicesHtml}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = 
+                `<i class="fas fa-hand-holding-usd"></i> শরীয়া সেবাসমূহ`;
+        }
+
+        function showApplyService(container) {
+            showServices(container);
+            document.getElementById('page-title').innerHTML = 
+                `<i class="fas fa-plus-circle"></i> নতুন সেবা নিন`;
+        }
+
+        function applyForService(serviceId) {
+            const db = IslamicBankSystem.load();
+            const service = db.services.find(s => s.id === serviceId);
+            currentService = service;
+            
+            document.getElementById('modal-title').textContent = `${service.name} - আবেদন ফরম`;
+            
+            let requirementsHtml = '';
+            if (service.requirements && service.requirements.length > 0) {
+                requirementsHtml = `
+                    <div class="form-group">
+                        <label style="color: var(--primary-dark); font-weight: 600;">
+                            <i class="fas fa-clipboard-list"></i> প্রয়োজনীয় কাগজপত্র
+                        </label>
+                        ${service.requirements.map(req => `
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                <i class="fas fa-check" style="color: var(--success); font-size: 0.9rem;"></i>
+                                <span>${req}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('modal-body').innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <div style="font-size: 2rem; color: var(--secondary);">
+                            <i class="${service.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary-dark); margin-bottom: 5px;">${service.name}</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">${service.description}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">ন্যূনতম পরিমাণ</div>
+                            <div style="font-weight: 600; color: var(--primary);">৳${formatMoney(service.minAmount)}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">লাভের হার</div>
+                            <div style="font-weight: 600; color: var(--secondary);">${service.profitRate}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">মেয়াদ</div>
+                            <div style="font-weight: 600;">${service.duration}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">শরীয়া অনুমোদন</div>
+                            <span class="sharia-badge">
+                                <i class="fas fa-star"></i> ${service.shariaApproval}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="application-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> আবেদনকারীর নাম</label>
+                        <input type="text" class="form-control" value="${currentUser.name}" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill-wave"></i> আবেদনের পরিমাণ (টাকা)</label>
+                            <input type="number" id="application-amount" class="form-control" 
+                                   min="${service.minAmount}" max="${service.maxAmount}" 
+                                   placeholder="আবেদনের পরিমাণ লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> আবেদনের মেয়াদ</label>
+                            <select id="application-duration" class="form-control" required>
+                                <option value="">নির্বাচন করুন</option>
+                                ${service.duration.split('-').map(d => `
+                                    <option value="${d.trim()}">${d.trim()}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-file-alt"></i> আবেদনের উদ্দেশ্য</label>
+                        <textarea id="application-purpose" class="form-control" rows="3" 
+                                  placeholder="আবেদনের উদ্দেশ্য বিস্তারিত লিখুন..." required></textarea>
+                    </div>
+                    
+                    ${requirementsHtml}
+                    
+                    ${service.type === 'investment' || service.type === 'business' ? `
+                        <div class="form-group">
+                            <label><i class="fas fa-briefcase"></i> ব্যবসায়িক পরিকল্পনা (যদি থাকে)</label>
+                            <textarea id="business-plan" class="form-control" rows="2" 
+                                      placeholder="সংক্ষেপে ব্যবসায়িক পরিকল্পনা লিখুন..."></textarea>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-file-upload"></i> অতিরিক্ত নথি (ঐচ্ছিক)</label>
+                        <input type="text" id="additional-docs" class="form-control" 
+                               placeholder="অতিরিক্ত নথির বিবরণ">
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" id="sharia-agreement" required style="margin-top: 3px;">
+                            <label for="sharia-agreement" style="font-size: 0.9rem; margin: 0;">
+                                আমি ঘোষণা করছি যে এই আবেদন শরীয়া নীতিমালা অনুযায়ী এবং সকল তথ্য সঠিক।
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary btn-lg" onclick="submitApplication()">
+                        <i class="fas fa-paper-plane"></i> আবেদন জমা দিন
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('service-modal').classList.remove('hidden');
+        }
+
+        function submitApplication() {
+            const amount = document.getElementById('application-amount').value;
+            const duration = document.getElementById('application-duration').value;
+            const purpose = document.getElementById('application-purpose').value;
+            
+            if (!amount || amount < currentService.minAmount) {
+                showToast(`ন্যূনতম পরিমাণ ${formatMoney(currentService.minAmount)} টাকা`, 'error');
+                return;
+            }
+            
+            if (amount > currentService.maxAmount) {
+                showToast(`সর্বোচ্চ পরিমাণ ${formatMoney(currentService.maxAmount)} টাকা`, 'error');
+                return;
+            }
+            
+            if (!duration || !purpose) {
+                showToast('সমস্ত তথ্য পূরণ করুন', 'error');
+                return;
+            }
+            
+            const businessPlan = document.getElementById('business-plan') ? 
+                document.getElementById('business-plan').value : '';
+            const additionalDocs = document.getElementById('additional-docs') ? 
+                document.getElementById('additional-docs').value : '';
+            
+            const application = {
+                userId: currentUser.id,
+                userName: currentUser.name,
+                serviceId: currentService.id,
+                serviceName: currentService.name,
+                amount: parseFloat(amount),
+                duration: duration,
+                purpose: purpose,
+                businessPlan: businessPlan,
+                additionalDocs: additionalDocs,
+                userType: currentUser.type,
+                shariaReview: false
+            };
+            
+            IslamicBankSystem.addApplication(application);
+            
+            showToast('আবেদন সফলভাবে জমা হয়েছে', 'success');
+            closeModal();
+            
+            if (currentUser.type === 'admin') {
+                switchTab('applications');
+            } else {
+                switchTab('my-applications');
+            }
+        }
+
+        // ===== আবেদন ভিউ =====
+        function showApplications(container) {
+            const db = IslamicBankSystem.load();
+            let applications = [];
+            
+            if (currentUser.type === 'admin') {
+                applications = db.applications;
+            } else {
+                applications = db.applications.filter(a => a.userId === currentUser.id);
+            }
+            
+            let tableHtml = '';
+            applications.forEach(app => {
+                const statusClass = app.status === 'pending' ? 'status-pending' :
+                                  app.status === 'approved' ? 'status-approved' :
+                                  app.status === 'rejected' ? 'status-rejected' :
+                                  app.status === 'processing' ? 'status-processing' : 'status-completed';
+                const statusText = app.status === 'pending' ? 'অপেক্ষমান' :
+                                 app.status === 'approved' ? 'অনুমোদিত' :
+                                 app.status === 'rejected' ? 'বাতিল' :
+                                 app.status === 'processing' ? 'প্রক্রিয়াধীন' : 'সম্পন্ন';
+                
+                tableHtml += `
+                    <tr>
+                        <td>${app.userName}</td>
+                        <td>${app.serviceName}</td>
+                        <td>৳${formatMoney(app.amount)}</td>
+                        <td>${app.duration}</td>
+                        <td>${app.appliedDate}</td>
+                        <td>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                            ${app.shariaReview ? 
+                                `<span class="sharia-badge" style="margin-left: 5px; font-size: 0.7rem;">
+                                    <i class="fas fa-star"></i>
+                                </span>` : ''
+                            }
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-info" onclick="viewApplication(${app.id})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                ${currentUser.type === 'admin' && app.status === 'pending' ? `
+                                    <button class="btn btn-sm btn-success" onclick="approveApplication(${app.id})">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="rejectApplication(${app.id})">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="table-container">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2>${currentUser.type === 'admin' ? 'সকল আবেদন' : 'আমার আবেদন'}</h2>
+                        ${currentUser.type === 'admin' ? `
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-outline" onclick="filterApplications('all')">
+                                    সব
+                                </button>
+                                <button class="btn btn-outline" onclick="filterApplications('pending')">
+                                    অপেক্ষমান
+                                </button>
+                                <button class="btn btn-outline" onclick="filterApplications('approved')">
+                                    অনুমোদিত
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>আবেদনকারী</th>
+                                    <th>সেবা</th>
+                                    <th>পরিমাণ</th>
+                                    <th>মেয়াদ</th>
+                                    <th>তারিখ</th>
+                                    <th>অবস্থা</th>
+                                    <th>কার্যক্রম</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableHtml || `
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; padding: 40px; color: var(--gray);">
+                                            <i class="fas fa-file-alt" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                                            <p>কোন আবেদন পাওয়া যায়নি</p>
+                                        </td>
+                                    </tr>
+                                `}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = 
+                `<i class="fas fa-file-alt"></i> ${currentUser.type === 'admin' ? 'আবেদনসমূহ' : 'আমার আবেদন'}`;
+        }
+
+        function viewApplication(appId) {
+            const db = IslamicBankSystem.load();
+            const app = db.applications.find(a => a.id == appId);
+            const service = db.services.find(s => s.id === app.serviceId);
+            
+            document.getElementById('modal-title').textContent = 'আবেদন বিস্তারিত';
+            
+            let reviewSection = '';
+            if (currentUser.type === 'admin' && app.status === 'pending') {
+                reviewSection = `
+                    <div style="background: var(--primary-light); border-radius: var(--radius); padding: 20px; margin: 20px 0;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 15px;">
+                            <i class="fas fa-gavel"></i> শরীয়া রিভিউ
+                        </h4>
+                        <div class="form-group">
+                            <label>শরীয়া সম্মতি</label>
+                            <select id="sharia-compliance" class="form-control">
+                                <option value="approved">শরীয়া সম্মত</option>
+                                <option value="conditionally-approved">শর্তসাপেক্ষে সম্মত</option>
+                                <option value="not-approved">অসম্মত</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>মন্তব্য</label>
+                            <textarea id="sharia-comment" class="form-control" rows="3" 
+                                      placeholder="শরীয়া রিভিউ মন্তব্য..."></textarea>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn btn-success flex-1" onclick="approveApplication(${app.id})">
+                                <i class="fas fa-check"></i> অনুমোদন করুন
+                            </button>
+                            <button class="btn btn-danger flex-1" onclick="rejectApplication(${app.id})">
+                                <i class="fas fa-times"></i> বাতিল করুন
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('modal-body').innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">আবেদনকারী</div>
+                        <div style="font-weight: 600; font-size: 1.1rem;">${app.userName}</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">${app.userType}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">আবেদন আইডি</div>
+                        <div style="font-weight: 600;">#${app.id}</div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">
+                        <i class="${service?.icon || 'fas fa-hand-holding-usd'}"></i> ${app.serviceName}
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">পরিমাণ</div>
+                            <div style="font-weight: 600; color: var(--primary);">৳${formatMoney(app.amount)}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">মেয়াদ</div>
+                            <div style="font-weight: 600;">${app.duration}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">আবেদনের তারিখ</div>
+                            <div style="font-weight: 600;">${app.appliedDate}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">অবস্থা</div>
+                            <span class="status-badge ${app.status === 'pending' ? 'status-pending' : 
+                                                       app.status === 'approved' ? 'status-approved' : 
+                                                       app.status === 'rejected' ? 'status-rejected' : 'status-processing'}">
+                                ${app.status === 'pending' ? 'অপেক্ষমান' : 
+                                 app.status === 'approved' ? 'অনুমোদিত' : 
+                                 app.status === 'rejected' ? 'বাতিল' : 'প্রক্রিয়াধীন'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">
+                        <i class="fas fa-file-alt"></i> আবেদনের উদ্দেশ্য
+                    </h4>
+                    <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 15px;">
+                        ${app.purpose}
+                    </div>
+                </div>
+                
+                ${app.businessPlan ? `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">
+                            <i class="fas fa-briefcase"></i> ব্যবসায়িক পরিকল্পনা
+                        </h4>
+                        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 15px;">
+                            ${app.businessPlan}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${reviewSection}
+                
+                ${app.status === 'approved' || app.status === 'rejected' ? `
+                    <div style="background: ${app.status === 'approved' ? '#d4edda' : '#f8d7da'}; 
+                         border-radius: var(--radius); padding: 20px; margin-top: 20px;">
+                        <h4 style="color: ${app.status === 'approved' ? '#155724' : '#721c24'}; margin-bottom: 10px;">
+                            <i class="fas fa-${app.status === 'approved' ? 'check-circle' : 'times-circle'}"></i>
+                            ${app.status === 'approved' ? 'অনুমোদন' : 'বাতিল'} বিবরণ
+                        </h4>
+                        <p><strong>তারিখ:</strong> ${app.approvedDate || app.rejectedDate}</p>
+                        <p><strong>অফিসার:</strong> ${app.approvedBy || app.rejectedBy}</p>
+                        ${app.reviewComment ? `<p><strong>মন্তব্য:</strong> ${app.reviewComment}</p>` : ''}
+                    </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('service-modal').classList.remove('hidden');
+        }
+
+        function approveApplication(appId) {
+            const db = IslamicBankSystem.load();
+            const app = db.applications.find(a => a.id == appId);
+            
+            if (app) {
+                app.status = 'approved';
+                app.approvedBy = currentUser.name;
+                app.approvedDate = new Date().toLocaleString('bn-BD');
+                app.shariaReview = true;
+                app.reviewComment = document.getElementById('sharia-comment') ? 
+                    document.getElementById('sharia-comment').value : 'শরীয়া সম্মত আবেদন';
+                
+                // ইউজার ব্যালেন্স আপডেট (ডিপোজিট হলে)
+                const user = db.users.find(u => u.id === app.userId);
+                if (user && app.serviceId.includes('savings')) {
+                    user.balance = (user.balance || 0) + app.amount;
+                    
+                    // লেনদেন যোগ করুন
+                    IslamicBankSystem.addTransaction({
+                        userId: app.userId,
+                        type: 'deposit',
+                        amount: app.amount,
+                        description: app.serviceName,
+                        status: 'completed'
+                    });
+                }
+                
+                IslamicBankSystem.save(db);
+                
+                // নোটিফিকেশন
+                IslamicBankSystem.addNotification(app.userId, 'আবেদন অনুমোদিত', 
+                    `আপনার ${app.serviceName} আবেদন অনুমোদিত হয়েছে`, 'success');
+                
+                showToast('আবেদন অনুমোদন করা হয়েছে', 'success');
+                closeModal();
+                showApplications(document.getElementById('content-area'));
+                updateNotificationCount();
+            }
+        }
+
+        function rejectApplication(appId) {
+            const db = IslamicBankSystem.load();
+            const app = db.applications.find(a => a.id == appId);
+            
+            if (app) {
+                app.status = 'rejected';
+                app.rejectedBy = currentUser.name;
+                app.rejectedDate = new Date().toLocaleString('bn-BD');
+                app.shariaReview = false;
+                app.reviewComment = document.getElementById('sharia-comment') ? 
+                    document.getElementById('sharia-comment').value : 'শরীয়া নীতিমালার লঙ্ঘন';
+                
+                IslamicBankSystem.save(db);
+                
+                // নোটিফিকেশন
+                IslamicBankSystem.addNotification(app.userId, 'আবেদন বাতিল', 
+                    `আপনার ${app.serviceName} আবেদন বাতিল করা হয়েছে`, 'error');
+                
+                showToast('আবেদন বাতিল করা হয়েছে', 'error');
+                closeModal();
+                showApplications(document.getElementById('content-area'));
+                updateNotificationCount();
+            }
+        }
+
+        // ===== চ্যাট সিস্টেম =====
+        function showChat(container) {
+            const db = IslamicBankSystem.load();
+            
+            if (currentUser.type === 'admin') {
+                // অ্যাডমিন চ্যাট ইন্টারফেস
+                const users = db.users.filter(u => u.type !== 'admin');
+                
+                let userList = '';
+                users.forEach(user => {
+                    const userMessages = db.messages.filter(m => 
+                        (m.from === user.id && m.to === 'admin') || 
+                        (m.from === 'admin' && m.to === user.id)
+                    ).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    
+                    const lastMessage = userMessages[0];
+                    const unreadCount = db.messages.filter(m => 
+                        m.from === user.id && m.to === 'admin' && !m.read).length;
+                    
+                    userList += `
+                        <div class="menu-item ${activeChatWith === user.id ? 'active' : ''}" 
+                             onclick="openChatWith('${user.id}')">
+                            <div class="user-avatar" style="width: 35px; height: 35px; font-size: 1rem;">
+                                ${user.name.charAt(0)}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">${user.name}</div>
+                                <div style="font-size: 0.85rem; color: var(--gray); 
+                                     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${lastMessage ? lastMessage.text.substring(0, 30) + '...' : 'কোন বার্তা নেই'}
+                                </div>
+                            </div>
+                            ${unreadCount > 0 ? `<span class="badge">${unreadCount}</span>` : ''}
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = `
+                    <div class="chat-container">
+                        <div class="chat-list">
+                            <div class="chat-header">
+                                <i class="fas fa-users"></i> গ্রাহক তালিকা
+                            </div>
+                            <div style="overflow-y: auto; flex: 1;">
+                                ${userList || '<div style="padding: 20px; text-align: center; color: var(--gray);">কোন গ্রাহক নেই</div>'}
+                            </div>
+                        </div>
+                        
+                        <div class="chat-window">
+                            <div class="chat-header" id="chat-header">
+                                <span id="chat-with-name">একজন গ্রাহক নির্বাচন করুন</span>
+                            </div>
+                            <div class="chat-messages" id="chat-messages">
+                                <div style="text-align: center; padding: 40px; color: var(--gray);">
+                                    <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                                    <p>কথোপকথন শুরু করতে বাম দিক থেকে একজন গ্রাহক নির্বাচন করুন</p>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="chat-input" class="chat-input" placeholder="বার্তা লিখুন..." disabled>
+                                <button class="btn btn-primary" id="chat-send-btn" disabled>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // ইভেন্ট লিসেনার সেট
+                document.getElementById('chat-send-btn').onclick = sendAdminMessage;
+                document.getElementById('chat-input').onkeypress = function(e) {
+                    if (e.key === 'Enter') sendAdminMessage();
+                };
+            } else {
+                // ইউজার চ্যাট ইন্টারফেস
+                const messages = db.messages.filter(m => 
+                    (m.from === currentUser.id && m.to === 'admin') || 
+                    (m.from === 'admin' && m.to === currentUser.id)
+                ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                
+                let messagesHtml = '';
+                messages.forEach(msg => {
+                    const isMe = msg.from === currentUser.id;
+                    messagesHtml += `
+                        <div class="message ${isMe ? 'msg-sent' : 'msg-received'}">
+                            <div>${msg.text}</div>
+                            <div class="message-time">
+                                ${msg.timestamp} • ${isMe ? 'আপনি' : 'অ্যাডমিন'}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // আনরিড মেসেজ পড়া হিসেবে মার্ক করুন
+                db.messages.filter(m => m.from === 'admin' && m.to === currentUser.id && !m.read)
+                    .forEach(m => m.read = true);
+                IslamicBankSystem.save(db);
+                updateNotificationCount();
+                
+                container.innerHTML = `
+                    <div class="chat-container" style="height: calc(100vh - 150px);">
+                        <div class="chat-window">
+                            <div class="chat-header">
+                                <i class="fas fa-headset"></i> অ্যাডমিন সাপোর্ট টিম
+                            </div>
+                            <div class="chat-messages" id="user-chat-messages">
+                                ${messagesHtml || `
+                                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                                        <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                                        <p>অ্যাডমিনের সাথে সরাসরি যোগাযোগ করুন</p>
+                                        <p style="font-size: 0.9rem; margin-top: 10px;">যে কোন প্রশ্ন বা সমস্যার সমাধান পেতে এখানে বার্তা পাঠান</p>
+                                    </div>
+                                `}
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="user-chat-input" class="chat-input" placeholder="আপনার বার্তা লিখুন...">
+                                <button class="btn btn-primary" onclick="sendUserMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // স্ক্রল নিচে
+                setTimeout(() => {
+                    const chatWindow = document.getElementById('user-chat-messages');
+                    if (chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+                }, 100);
+                
+                // ইভেন্ট লিসেনার
+                document.getElementById('user-chat-input').onkeypress = function(e) {
+                    if (e.key === 'Enter') sendUserMessage();
+                };
+            }
+            
+            document.getElementById('page-title').innerHTML = 
+                `<i class="fas fa-comments"></i> ${currentUser.type === 'admin' ? 'গ্রাহক চ্যাট' : 'সহায়তা চ্যাট'}`;
+        }
+
+        function openChatWith(userId) {
+            activeChatWith = userId;
+            const db = IslamicBankSystem.load();
+            const user = db.users.find(u => u.id === userId);
+            
+            document.getElementById('chat-with-name').textContent = user.name;
+            document.getElementById('chat-header').innerHTML = `
+                <i class="fas fa-user"></i> ${user.name}
+            `;
+            
+            const input = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('chat-send-btn');
+            
+            input.disabled = false;
+            sendBtn.disabled = false;
+            input.focus();
+            
+            // মেসেজ লোড
+            loadChatMessages(userId);
+        }
+
+        function loadChatMessages(userId) {
+            const db = IslamicBankSystem.load();
+            const messages = db.messages.filter(m => 
+                (m.from === userId && m.to === 'admin') || 
+                (m.from === 'admin' && m.to === userId)
+            ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            
+            let messagesHtml = '';
+            messages.forEach(msg => {
+                const isMe = msg.from === 'admin';
+                messagesHtml += `
+                    <div class="message ${isMe ? 'msg-sent' : 'msg-received'}">
+                        <div>${msg.text}</div>
+                        <div class="message-time">
+                            ${msg.timestamp} • ${isMe ? 'আপনি' : msg.from === 'admin' ? 'অ্যাডমিন' : 'গ্রাহক'}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            const chatWindow = document.getElementById('chat-messages');
+            if (chatWindow) {
+                chatWindow.innerHTML = messagesHtml || `
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        <i class="fas fa-comments" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.3;"></i>
+                        <p>কোন বার্তা নেই</p>
+                        <p style="font-size: 0.9rem;">প্রথম বার্তা পাঠিয়ে শুরু করুন</p>
+                    </div>
+                `;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+            
+            // আনরিড মেসেজ পড়া হিসেবে মার্ক করুন
+            db.messages.filter(m => m.from === userId && m.to === 'admin' && !m.read)
+                .forEach(m => m.read = true);
+            IslamicBankSystem.save(db);
+            updateNotificationCount();
+        }
+
+        function sendAdminMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            
+            if (text && activeChatWith) {
+                IslamicBankSystem.addMessage('admin', activeChatWith, text);
+                input.value = '';
+                loadChatMessages(activeChatWith);
+                updateNotificationCount();
+            }
+        }
+
+        function sendUserMessage() {
+            const input = document.getElementById('user-chat-input');
+            const text = input.value.trim();
+            
+            if (text) {
+                IslamicBankSystem.addMessage(currentUser.id, 'admin', text);
+                input.value = '';
+                
+                // UI আপডেট
+                const chatWindow = document.getElementById('user-chat-messages');
+                if (chatWindow) {
+                    const newMsg = document.createElement('div');
+                    newMsg.className = 'message msg-sent';
+                    newMsg.innerHTML = `
+                        <div>${text}</div>
+                        <div class="message-time">
+                            ${new Date().toLocaleString('bn-BD')} • আপনি
+                        </div>
+                    `;
+                    chatWindow.appendChild(newMsg);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                }
+                
+                updateNotificationCount();
+            }
+        }
+
+        // ===== শরীয়া পরামর্শ সিস্টেম =====
+        function showShariaPanel(container) {
+            container.innerHTML = `
+                <div class="dashboard-content">
+                    <div class="welcome-banner">
+                        <div>
+                            <h2><i class="fas fa-gavel"></i> শরীয়া সুপারভাইজরি প্যানেল</h2>
+                            <p>শরীয়া নীতিমালা পর্যালোচনা ও অনুমোদন ব্যবস্থাপনা</p>
+                        </div>
+                        <div style="font-size: 3rem; opacity: 0.3;">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3 id="pending-sharia-review">0</h3>
+                                <p>শরীয়া পর্যালোচনা প্রয়োজন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-info">
+                                <h3 id="approved-sharia">0</h3>
+                                <p>শরীয়া অনুমোদিত</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-info">
+                                <h3 id="rejected-sharia">0</h3>
+                                <p>শরীয়া অসম্মত</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 20px;">শরীয়া পর্যালোচনা তালিকা</h3>
+                        <div id="sharia-review-list">
+                            <!-- শরীয়া রিভিউ লিস্ট -->
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-gavel"></i> শরীয়া প্যানেল`;
+            loadShariaReviewList();
+        }
+
+        function loadShariaReviewList() {
+            const db = IslamicBankSystem.load();
+            const pendingApps = db.applications.filter(a => a.status === 'pending');
+            const approvedApps = db.applications.filter(a => a.status === 'approved' && a.shariaReview);
+            const rejectedApps = db.applications.filter(a => a.status === 'rejected');
+            
+            // স্ট্যাট আপডেট
+            document.getElementById('pending-sharia-review').textContent = pendingApps.length;
+            document.getElementById('approved-sharia').textContent = approvedApps.length;
+            document.getElementById('rejected-sharia').textContent = rejectedApps.length;
+            
+            // লিস্ট আপডেট
+            let reviewListHtml = '';
+            pendingApps.forEach(app => {
+                reviewListHtml += `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h4 style="color: var(--primary-dark); margin-bottom: 5px;">${app.serviceName}</h4>
+                                <p style="color: var(--gray); font-size: 0.9rem;">
+                                    <strong>আবেদনকারী:</strong> ${app.userName} • 
+                                    <strong>পরিমাণ:</strong> ৳${formatMoney(app.amount)} • 
+                                    <strong>তারিখ:</strong> ${app.appliedDate}
+                                </p>
+                            </div>
+                            <div>
+                                <button class="btn btn-info btn-sm" onclick="viewApplication(${app.id})">
+                                    <i class="fas fa-eye"></i> দেখুন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('sharia-review-list').innerHTML = 
+                reviewListHtml || '<div style="text-align: center; padding: 40px; color: var(--gray);">কোন পর্যালোচনা প্রয়োজন নেই</div>';
+        }
+
+        function openShariaAdviceModal() {
+            document.getElementById('sharia-advice-modal').classList.remove('hidden');
+        }
+
+        function closeShariaAdviceModal() {
+            document.getElementById('sharia-advice-modal').classList.add('hidden');
+        }
+
+        function sendShariaMessage() {
+            const input = document.getElementById('sharia-chat-input');
+            const text = input.value.trim();
+            
+            if (text) {
+                const chatWindow = document.getElementById('sharia-chat-messages');
+                const newMsg = document.createElement('div');
+                newMsg.className = 'message msg-sent';
+                newMsg.innerHTML = `
+                    <div>${text}</div>
+                    <div class="message-time">
+                        ${new Date().toLocaleString('bn-BD')} • আপনি
+                    </div>
+                `;
+                chatWindow.appendChild(newMsg);
+                input.value = '';
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                
+                // অটো রিপ্লাই (সিমুলেটেড শরীয়া পরামর্শ)
+                setTimeout(() => {
+                    const replies = [
+                        "আপনার প্রশ্নটি শরীয়া বিশেষজ্ঞদের কাছে প্রেরণ করা হয়েছে। শীঘ্রই উত্তর পাবেন।",
+                        "প্রশ্নটি ইসলামী ব্যাংকিং নীতিমালার আলোকে পর্যালোচনা করা হচ্ছে।",
+                        "আপনার বিষয়টি শরীয়া সুপারভাইজরি বোর্ডে উত্থাপন করা হয়েছে।",
+                        "শরীয়া বিশেষজ্ঞগণ আপনার প্রশ্নের উত্তর প্রস্তুত করছেন।"
+                    ];
+                    
+                    const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                    
+                    const replyMsg = document.createElement('div');
+                    replyMsg.className = 'message msg-received';
+                    replyMsg.innerHTML = `
+                        <div>${randomReply}</div>
+                        <div class="message-time">শরীয়া পরামর্শক</div>
+                    `;
+                    chatWindow.appendChild(replyMsg);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // ===== অন্যান্য ভিউ ফাংশন =====
+        function showMyAccounts(container) {
+            const db = IslamicBankSystem.load();
+            const userAccounts = db.applications.filter(a => 
+                a.userId === currentUser.id && a.status === 'approved');
+            
+            let accountsHtml = '';
+            userAccounts.forEach(account => {
+                const service = db.services.find(s => s.id === account.serviceId);
+                accountsHtml += `
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="${service?.icon || 'fas fa-wallet'}"></i>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-title">${account.serviceName}</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+                                <div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">পরিমাণ</div>
+                                    <div style="font-weight: 600; color: var(--primary);">৳${formatMoney(account.amount)}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">অনুমোদনের তারিখ</div>
+                                    <div style="font-weight: 600;">${account.approvedDate}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">মেয়াদ</div>
+                                    <div style="font-weight: 600;">${account.duration}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">অবস্থা</div>
+                                    <span class="status-badge status-approved">চলমান</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline w-100" onclick="viewApplication(${account.id})">
+                                <i class="fas fa-eye"></i> বিস্তারিত দেখুন
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="services-container">
+                    <h2>আমার অ্যাকাউন্টসমূহ</h2>
+                    
+                    <div style="background: linear-gradient(135deg, var(--primary-light), #e8f5e9); 
+                         border-radius: var(--radius); padding: 20px; margin: 20px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--primary-dark); margin-bottom: 5px;">মোট বিনিয়োগ</h4>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">
+                                    ৳${formatMoney(currentUser.balance || 0)}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.9rem; color: var(--gray);">সক্রিয় অ্যাকাউন্ট</div>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">
+                                    ${userAccounts.length}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="services-grid">
+                        ${accountsHtml || `
+                            <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                                <i class="fas fa-wallet" style="font-size: 3rem; color: var(--gray); margin-bottom: 15px; opacity: 0.3;"></i>
+                                <h3 style="color: var(--gray); margin-bottom: 10px;">কোন অ্যাকাউন্ট নেই</h3>
+                                <p style="color: var(--gray); margin-bottom: 20px;">এখনো কোন সেবা অনুমোদন করা হয়নি</p>
+                                <button class="btn btn-primary" onclick="switchTab('apply-service')">
+                                    <i class="fas fa-plus"></i> নতুন সেবা নিন
+                                </button>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-wallet"></i> আমার অ্যাকাউন্ট`;
+        }
+
+        function showUsers(container) {
+            const db = IslamicBankSystem.load();
+            const users = db.users.filter(u => u.type !== 'admin');
+            
+            let usersHtml = '';
+            users.forEach(user => {
+                const userAccounts = db.applications.filter(a => a.userId === user.id && a.status === 'approved').length;
+                const totalInvestment = db.applications
+                    .filter(a => a.userId === user.id && a.status === 'approved')
+                    .reduce((sum, a) => sum + a.amount, 0);
+                
+                usersHtml += `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="user-avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">
+                                    ${user.name.charAt(0)}
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600;">${user.name}</div>
+                                    <div style="font-size: 0.85rem; color: var(--gray);">${user.nid}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>${getUserTypeText(user.type)}</td>
+                        <td>${userAccounts}</td>
+                        <td>৳${formatMoney(totalInvestment)}</td>
+                        <td>${user.joined}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-info" onclick="viewUserDetails('${user.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-primary" onclick="openChatWith('${user.id}')">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="table-container">
+                    <h2>ব্যবহারকারী ব্যবস্থাপনা</h2>
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ব্যবহারকারী</th>
+                                    <th>ইমেইল</th>
+                                    <th>ফোন</th>
+                                    <th>ধরন</th>
+                                    <th>অ্যাকাউন্ট</th>
+                                    <th>বিনিয়োগ</th>
+                                    <th>যোগদান</th>
+                                    <th>কার্যক্রম</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${usersHtml || `
+                                    <tr>
+                                        <td colspan="8" style="text-align: center; padding: 40px; color: var(--gray);">
+                                            <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                                            <p>কোন ব্যবহারকারী নেই</p>
+                                        </td>
+                                    </tr>
+                                `}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-users"></i> ব্যবহারকারী`;
+        }
+
+        function viewUserDetails(userId) {
+            const db = IslamicBankSystem.load();
+            const user = db.users.find(u => u.id === userId);
+            const userApplications = db.applications.filter(a => a.userId === userId);
+            
+            document.getElementById('modal-title').textContent = 'ব্যবহারকারী বিস্তারিত';
+            
+            let applicationsHtml = '';
+            userApplications.forEach(app => {
+                applicationsHtml += `
+                    <div style="background: #f8f9fa; border-radius: var(--radius-sm); padding: 10px; margin-bottom: 10px;">
+                        <div style="font-weight: 600;">${app.serviceName}</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                            <span>৳${formatMoney(app.amount)} • ${app.duration}</span>
+                            <span class="status-badge ${app.status === 'approved' ? 'status-approved' : 
+                                                       app.status === 'pending' ? 'status-pending' : 'status-rejected'}">
+                                ${app.status === 'approved' ? 'অনুমোদিত' : 
+                                 app.status === 'pending' ? 'অপেক্ষমান' : 'বাতিল'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('modal-body').innerHTML = `
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                    <div class="user-avatar" style="width: 70px; height: 70px; font-size: 1.8rem;">
+                        ${user.name.charAt(0)}
+                    </div>
+                    <div>
+                        <h3 style="color: var(--primary-dark); margin-bottom: 5px;">${user.name}</h3>
+                        <div style="color: var(--gray);">${getUserTypeText(user.type)} গ্রাহক</div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">NID নম্বর</div>
+                        <div style="font-weight: 600;">${user.nid}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">যোগদানের তারিখ</div>
+                        <div style="font-weight: 600;">${user.joined}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">ইমেইল</div>
+                        <div style="font-weight: 600;">${user.email}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">মোবাইল</div>
+                        <div style="font-weight: 600;">${user.phone}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">পেশা</div>
+                        <div style="font-weight: 600;">${user.occupation || 'প্রদান করা হয়নি'}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">মাসিক আয়</div>
+                        <div style="font-weight: 600;">৳${formatMoney(user.monthlyIncome)}</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div style="font-size: 0.9rem; color: var(--gray);">ঠিকানা</div>
+                    <div style="font-weight: 600; margin-bottom: 10px;">${user.address}</div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">আবেদনসমূহ (${userApplications.length})</h4>
+                    ${applicationsHtml || '<div style="text-align: center; padding: 20px; color: var(--gray);">কোন আবেদন নেই</div>'}
+                </div>
+            `;
+            
+            document.getElementById('service-modal').classList.remove('hidden');
+        }
+
+        function showTransactions(container) {
+            const db = IslamicBankSystem.load();
+            let transactions = [];
+            
+            if (currentUser.type === 'admin') {
+                transactions = db.transactions;
+            } else {
+                transactions = db.transactions.filter(t => t.userId === currentUser.id);
+            }
+            
+            let tableHtml = '';
+            transactions.forEach(txn => {
+                const user = db.users.find(u => u.id === txn.userId);
+                tableHtml += `
+                    <tr>
+                        <td>#${txn.id}</td>
+                        <td>${currentUser.type === 'admin' ? (user?.name || 'Unknown') : 'আপনি'}</td>
+                        <td>${txn.description}</td>
+                        <td style="color: ${txn.type === 'deposit' ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
+                            ${txn.type === 'deposit' ? '+' : '-'}৳${formatMoney(txn.amount)}
+                        </td>
+                        <td>৳${formatMoney(txn.balance)}</td>
+                        <td>${txn.date}</td>
+                        <td>
+                            <span class="status-badge ${txn.status === 'completed' ? 'status-approved' : 
+                                                       txn.status === 'pending' ? 'status-pending' : 'status-processing'}">
+                                ${txn.status === 'completed' ? 'সম্পন্ন' : 
+                                 txn.status === 'pending' ? 'অপেক্ষমান' : 'প্রক্রিয়াধীন'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="table-container">
+                    <h2>লেনদেন ইতিহাস</h2>
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ট্রান্সেকশন আইডি</th>
+                                    <th>ব্যবহারকারী</th>
+                                    <th>বর্ণনা</th>
+                                    <th>পরিমাণ</th>
+                                    <th>ব্যালেন্স</th>
+                                    <th>তারিখ</th>
+                                    <th>অবস্থা</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableHtml || `
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; padding: 40px; color: var(--gray);">
+                                            <i class="fas fa-exchange-alt" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                                            <p>কোন লেনদেন নেই</p>
+                                        </td>
+                                    </tr>
+                                `}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-exchange-alt"></i> লেনদেন`;
+        }
+
+        function showReports(container) {
+            const db = IslamicBankSystem.load();
+            const totalUsers = db.users.filter(u => u.type !== 'admin').length;
+            const totalApplications = db.applications.length;
+            const totalInvestment = db.users.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const approvedApplications = db.applications.filter(a => a.status === 'approved').length;
+            
+            container.innerHTML = `
+                <div class="dashboard-content">
+                    <div class="welcome-banner">
+                        <div>
+                            <h2><i class="fas fa-chart-bar"></i> রিপোর্ট ও বিশ্লেষণ</h2>
+                            <p>ব্যাংকিং কার্যক্রমের পরিসংখ্যানিক প্রতিবেদন</p>
+                        </div>
+                        <div style="font-size: 3rem; opacity: 0.3;">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h3>${totalUsers}</h3>
+                                <p>মোট গ্রাহক</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-info">
+                                <h3>${totalApplications}</h3>
+                                <p>মোট আবেদন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-info">
+                                <h3>${approvedApplications}</h3>
+                                <p>অনুমোদিত আবেদন</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card info">
+                            <div class="stat-info">
+                                <h3>৳${formatMoney(totalInvestment)}</h3>
+                                <p>মোট বিনিয়োগ</p>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 20px;">রিপোর্ট ডাউনলোড</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div class="card text-center" onclick="downloadReport('users')">
+                                <div style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4>ব্যবহারকারী রিপোর্ট</h4>
+                                <p style="color: var(--gray); font-size: 0.9rem;">সকল গ্রাহকের তথ্য</p>
+                                <button class="btn btn-outline mt-10">
+                                    <i class="fas fa-download"></i> ডাউনলোড
+                                </button>
+                            </div>
+                            <div class="card text-center" onclick="downloadReport('applications')">
+                                <div style="font-size: 2rem; color: var(--success); margin-bottom: 15px;">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h4>আবেদন রিপোর্ট</h4>
+                                <p style="color: var(--gray); font-size: 0.9rem;">সকল আবেদনের তথ্য</p>
+                                <button class="btn btn-outline mt-10">
+                                    <i class="fas fa-download"></i> ডাউনলোড
+                                </button>
+                            </div>
+                            <div class="card text-center" onclick="downloadReport('transactions')">
+                                <div style="font-size: 2rem; color: var(--info); margin-bottom: 15px;">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <h4>লেনদেন রিপোর্ট</h4>
+                                <p style="color: var(--gray); font-size: 0.9rem;">সকল লেনদেনের তথ্য</p>
+                                <button class="btn btn-outline mt-10">
+                                    <i class="fas fa-download"></i> ডাউনলোড
+                                </button>
+                            </div>
+                            <div class="card text-center" onclick="downloadReport('sharia')">
+                                <div style="font-size: 2rem; color: var(--secondary); margin-bottom: 15px;">
+                                    <i class="fas fa-gavel"></i>
+                                </div>
+                                <h4>শরীয়া রিপোর্ট</h4>
+                                <p style="color: var(--gray); font-size: 0.9rem;">শরীয়া পর্যালোচনা</p>
+                                <button class="btn btn-outline mt-10">
+                                    <i class="fas fa-download"></i> ডাউনলোড
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-chart-bar"></i> রিপোর্ট`;
+        }
+
+        function downloadReport(type) {
+            showToast(`${type} রিপোর্ট ডাউনলোড শুরু হয়েছে`, 'info');
+            setTimeout(() => {
+                showToast(`${type} রিপোর্ট ডাউনলোড সম্পন্ন হয়েছে`, 'success');
+            }, 2000);
+        }
+
+        function showProfile(container) {
+            const db = IslamicBankSystem.load();
+            const user = currentUser;
+            
+            container.innerHTML = `
+                <div class="dashboard-content">
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="welcome-banner">
+                            <div>
+                                <h2>আমার প্রোফাইল</h2>
+                                <p>ব্যক্তিগত তথ্য ও অ্যাকাউন্ট সেটিংস</p>
+                            </div>
+                            <div class="user-avatar" style="width: 70px; height: 70px; font-size: 1.8rem;">
+                                ${user.name.charAt(0)}
+                            </div>
+                        </div>
+                        
+                        <div class="card" style="margin-top: 25px;">
+                            <h3 style="color: var(--primary-dark); margin-bottom: 20px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px;">
+                                <i class="fas fa-user-circle"></i> ব্যক্তিগত তথ্য
+                            </h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">পুরো নাম</label>
+                                    <div style="font-weight: 600; font-size: 1.1rem;">${user.name}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">NID নম্বর</label>
+                                    <div style="font-weight: 600;">${user.nid}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">ইমেইল</label>
+                                    <div style="font-weight: 600;">${user.email}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">মোবাইল</label>
+                                    <div style="font-weight: 600;">${user.phone}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">জন্ম তারিখ</label>
+                                    <div style="font-weight: 600;">${user.dob ? formatDate(user.dob) : 'প্রদান করা হয়নি'}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">একাউন্টের ধরন</label>
+                                    <div style="font-weight: 600;">${getUserTypeText(user.type)}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">পেশা</label>
+                                    <div style="font-weight: 600;">${user.occupation || 'প্রদান করা হয়নি'}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">মাসিক আয়</label>
+                                    <div style="font-weight: 600;">৳${formatMoney(user.monthlyIncome)}</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; color: var(--gray); margin-bottom: 5px;">ঠিকানা</label>
+                                <div style="font-weight: 600;">${user.address || 'প্রদান করা হয়নি'}</div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">যোগদানের তারিখ</label>
+                                    <div style="font-weight: 600;">${user.joined}</div>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: var(--gray); margin-bottom: 5px;">বর্তমান ব্যালেন্স</label>
+                                    <div style="font-weight: 600; color: var(--primary); font-size: 1.2rem;">
+                                        ৳${formatMoney(user.balance || 0)}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 30px;">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> প্রোফাইল এডিট করুন
+                                </button>
+                                <button class="btn btn-outline" onclick="changePassword()" style="margin-left: 10px;">
+                                    <i class="fas fa-key"></i> পাসওয়ার্ড পরিবর্তন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-user"></i> প্রোফাইল`;
+        }
+
+        function changePassword() {
+            document.getElementById('modal-title').textContent = 'পাসওয়ার্ড পরিবর্তন';
+            
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> বর্তমান পাসওয়ার্ড</label>
+                    <input type="password" id="current-password" class="form-control" placeholder="বর্তমান পাসওয়ার্ড" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> নতুন পাসওয়ার্ড</label>
+                    <input type="password" id="new-password" class="form-control" placeholder="নতুন পাসওয়ার্ড" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+                    <input type="password" id="confirm-new-password" class="form-control" placeholder="নতুন পাসওয়ার্ড পুনরায়" required>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="updatePassword()">
+                        <i class="fas fa-save"></i> পাসওয়ার্ড পরিবর্তন করুন
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('service-modal').classList.remove('hidden');
+        }
+
+        function updatePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-new-password').value;
+            
+            if (currentPassword !== currentUser.password) {
+                showToast('বর্তমান পাসওয়ার্ড সঠিক নয়', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('নতুন পাসওয়ার্ড মিলছে না', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                showToast('পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে', 'error');
+                return;
+            }
+            
+            const db = IslamicBankSystem.load();
+            const userIndex = db.users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex > -1) {
+                db.users[userIndex].password = newPassword;
+                IslamicBankSystem.save(db);
+                currentUser.password = newPassword;
+                
+                showToast('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে', 'success');
+                closeModal();
+            }
+        }
+
+        function showSettings(container) {
+            const db = IslamicBankSystem.load();
+            const settings = db.settings;
+            
+            container.innerHTML = `
+                <div class="dashboard-content">
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <h2 style="color: var(--primary-dark); margin-bottom: 25px;">
+                            <i class="fas fa-cog"></i> সিস্টেম সেটিংস
+                        </h2>
+                        
+                        <div class="card" style="margin-bottom: 20px;">
+                            <h3 style="color: var(--primary-dark); margin-bottom: 20px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px;">
+                                <i class="fas fa-building"></i> ব্যাংক তথ্য
+                            </h3>
+                            
+                            <div class="form-group">
+                                <label>ব্যাংকের নাম</label>
+                                <input type="text" id="bank-name" class="form-control" value="${settings.bankName}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>সাপোর্ট ইমেইল</label>
+                                <input type="email" id="support-email" class="form-control" value="${settings.supportEmail}">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>যোগাযোগ নম্বর</label>
+                                    <input type="text" id="contact-number" class="form-control" value="${settings.contactNumber}">
+                                </div>
+                                <div class="form-group">
+                                    <label>কাজের সময়</label>
+                                    <input type="text" id="working-hours" class="form-control" value="${settings.workingHours}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>প্রার্থনা বিরতি</label>
+                                <input type="text" id="prayer-break" class="form-control" value="${settings.prayerBreak}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>ঠিকানা</label>
+                                <textarea id="bank-address" class="form-control" rows="2">${settings.address}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="card" style="margin-bottom: 20px;">
+                            <h3 style="color: var(--primary-dark); margin-bottom: 20px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px;">
+                                <i class="fas fa-shield-alt"></i> নিরাপত্তা সেটিংস
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>সেশন টাইমআউট (মিনিট)</label>
+                                    <input type="number" id="session-timeout" class="form-control" value="30" min="5" max="120">
+                                </div>
+                                <div class="form-group">
+                                    <label>সর্বোচ্চ লগইন প্রচেষ্টা</label>
+                                    <input type="number" id="max-login-attempts" class="form-control" value="5" min="1" max="10">
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="enable-captcha" checked>
+                                    <label for="enable-captcha">ক্যাপচা সক্ষম করুন</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="enable-2fa">
+                                    <label for="enable-2fa">২-ফ্যাক্টর অথেন্টিকেশন</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="enable-logging" checked>
+                                    <label for="enable-logging">লগিং সক্ষম করুন</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="btn btn-primary btn-lg" onclick="saveSettings()">
+                                <i class="fas fa-save"></i> সেটিংস সংরক্ষণ করুন
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('page-title').innerHTML = `<i class="fas fa-cog"></i> সেটিংস`;
+        }
+
+        function saveSettings() {
+            const db = IslamicBankSystem.load();
+            
+            db.settings.bankName = document.getElementById('bank-name').value;
+            db.settings.supportEmail = document.getElementById('support-email').value;
+            db.settings.contactNumber = document.getElementById('contact-number').value;
+            db.settings.workingHours = document.getElementById('working-hours').value;
+            db.settings.prayerBreak = document.getElementById('prayer-break').value;
+            db.settings.address = document.getElementById('bank-address').value;
+            
+            IslamicBankSystem.save(db);
+            showToast('সেটিংস সফলভাবে সংরক্ষণ করা হয়েছে', 'success');
+        }
+
+        // ===== নোটিফিকেশন সিস্টেম =====
+        function toggleNotifications() {
+            const panel = document.getElementById('notifications-panel');
+            panel.classList.toggle('show');
+            
+            if (panel.classList.contains('show')) {
+                loadNotifications();
+            }
+        }
+
+        function loadNotifications() {
+            const db = IslamicBankSystem.load();
+            const notifications = db.notifications
+                .filter(n => n.userId === currentUser.id)
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            let notificationsHtml = '';
+            notifications.forEach(notif => {
+                let icon = 'fas fa-bell';
+                let iconColor = 'var(--primary)';
+                
+                switch(notif.type) {
+                    case 'application': 
+                        icon = 'fas fa-file-alt'; 
+                        iconColor = 'var(--info)';
+                        break;
+                    case 'message': 
+                        icon = 'fas fa-comment'; 
+                        iconColor = 'var(--success)';
+                        break;
+                    case 'success': 
+                        icon = 'fas fa-check-circle'; 
+                        iconColor = 'var(--success)';
+                        break;
+                    case 'error': 
+                        icon = 'fas fa-exclamation-circle'; 
+                        iconColor = 'var(--danger)';
+                        break;
+                    case 'registration': 
+                        icon = 'fas fa-user-plus'; 
+                        iconColor = 'var(--secondary)';
+                        break;
+                }
+                
+                notificationsHtml += `
+                    <div class="notification-item ${notif.read ? '' : 'unread'}" onclick="openNotification(${notif.id})">
+                        ${!notif.read ? '<div class="notification-dot"></div>' : ''}
+                        <div style="color: ${iconColor}; font-size: 1.2rem; margin-top: 3px;">
+                            <i class="${icon}"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">${notif.title}</div>
+                            <div class="notification-message">${notif.message}</div>
+                            <div class="notification-time">${notif.timestamp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('notifications-list').innerHTML = 
+                notificationsHtml || '<div style="padding: 40px; text-align: center; color: var(--gray);">কোন নোটিফিকেশন নেই</div>';
+        }
+
+        function openNotification(notifId) {
+            const db = IslamicBankSystem.load();
+            const notif = db.notifications.find(n => n.id == notifId);
+            
+            if (notif) {
+                notif.read = true;
+                IslamicBankSystem.save(db);
+                
+                document.getElementById('notifications-panel').classList.remove('show');
+                updateNotificationCount();
+                
+                // নোটিফিকেশনের ধরন অনুযায়ী অ্যাকশন
+                if (notif.type === 'application') {
+                    switchTab(currentUser.type === 'admin' ? 'applications' : 'my-applications');
+                } else if (notif.type === 'message') {
+                    switchTab(currentUser.type === 'admin' ? 'chat-admin' : 'chat-user');
+                }
+            }
+        }
+
+        function markAllNotificationsRead() {
+            const db = IslamicBankSystem.load();
+            db.notifications.filter(n => n.userId === currentUser.id && !n.read)
+                .forEach(n => n.read = true);
+            IslamicBankSystem.save(db);
+            updateNotificationCount();
+            loadNotifications();
+        }
+
+        function updateNotificationCount() {
+            if (!currentUser) return;
+            
+            const db = IslamicBankSystem.load();
+            const unreadCount = db.notifications.filter(n => 
+                n.userId === currentUser.id && !n.read).length;
+            
+            const badge = document.getElementById('notification-badge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            
+            // মেনু বেজ আপডেট
+            updateMenuBadges();
+        }
+
+        function updateMenuBadges() {
+            const db = IslamicBankSystem.load();
+            
+            // পেন্ডিং অ্যাপ্লিকেশন কাউন্ট
+            const pendingCount = currentUser.type === 'admin' ? 
+                db.applications.filter(a => a.status === 'pending').length :
+                db.applications.filter(a => a.userId === currentUser.id && a.status === 'pending').length;
+            
+            // আনরিড মেসেজ কাউন্ট
+            const unreadMessageCount = db.messages.filter(m => 
+                m.to === currentUser.id && !m.read).length;
+            
+            // মেনু আইটেম আপডেট
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const badge = item.querySelector('.badge');
+                if (badge) {
+                    if (item.textContent.includes('আবেদন')) {
+                        badge.textContent = pendingCount;
+                        badge.style.display = pendingCount > 0 ? 'block' : 'none';
+                    } else if (item.textContent.includes('চ্যাট')) {
+                        badge.textContent = unreadMessageCount;
+                        badge.style.display = unreadMessageCount > 0 ? 'block' : 'none';
+                    }
+                }
+            });
+        }
+
+        function getPendingApplicationsCount() {
+            const db = IslamicBankSystem.load();
+            return db.applications.filter(a => a.status === 'pending').length;
+        }
+
+        function getUserApplicationsCount() {
+            const db = IslamicBankSystem.load();
+            return db.applications.filter(a => 
+                a.userId === currentUser.id && a.status === 'pending').length;
+        }
+
+        function getUnreadMessagesCount(userId) {
+            const db = IslamicBankSystem.load();
+            return db.messages.filter(m => m.to === userId && !m.read).length;
+        }
+
+        // ===== ইউটিলিটি ফাংশন =====
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function closeModal() {
+            document.getElementById('service-modal').classList.add('hidden');
+            currentService = null;
+        }
+
+        // ===== ইনিশিয়ালাইজেশন =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // ক্যাপচা জেনারেট
+            generateCaptcha();
+            
+            // চেক যদি ইউজার লগড ইন থাকে
+            const savedUser = sessionStorage.getItem('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    document.getElementById('auth-section').classList.add('hidden');
+                    document.getElementById('app-section').classList.remove('hidden');
+                    
+                    // UI আপডেট
+                    document.getElementById('sidebar-username').textContent = currentUser.name;
+                    document.getElementById('sidebar-usertype').textContent = 
+                        currentUser.type === 'admin' ? 'অ্যাডমিন' : 
+                        currentUser.type === 'business' ? 'ব্যবসায়ী' : 
+                        currentUser.type === 'corporate' ? 'কর্পোরেট' : 
+                        currentUser.type === 'student' ? 'ছাত্র' : 'ব্যক্তিগত';
+                    document.getElementById('user-avatar').textContent = currentUser.name.charAt(0);
+                    
+                    initializeDashboard();
+                    updateNotificationCount();
+                } catch (e) {
+                    sessionStorage.removeItem('currentUser');
+                }
+            }
+            
+            // নোটিফিকেশন প্যানেল বাইরে ক্লিক করলে বন্ধ হবে
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('notifications-panel');
+                const icon = document.querySelector('.notification-btn');
+                
+                if (panel && panel.classList.contains('show') && 
+                    !panel.contains(e.target) && !icon.contains(e.target)) {
+                    panel.classList.remove('show');
+                }
+                
+                // মোবাইল সাইডবার বাইরে ক্লিক করলে বন্ধ হবে
+                const sidebar = document.getElementById('sidebar');
+                const mobileBtn = document.querySelector('.mobile-menu-btn');
+                if (sidebar && sidebar.classList.contains('open') && 
+                    !sidebar.contains(e.target) && !mobileBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
